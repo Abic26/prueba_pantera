@@ -11,13 +11,12 @@ const showDialog = ref(false);
 function toggleView() {
     showTextarea.value = !showTextarea.value;
 }
-
-const handleFilesSelected = (newFiles) => {
-    files.value = [...files.value, ...newFiles];
-};
-
 const openDialog = () => {
     showDialog.value = true;
+};
+const handleFilesSelected = (newFiles) => {
+    files.value = [...files.value, ...newFiles];
+    openDialog();
 };
 
 </script>
@@ -38,5 +37,5 @@ const openDialog = () => {
             </div>
         </div>
     </div>
-    <DialogPost v-if="showDialog" :postContent="postContent" :files="files" @close="showDialog = false" />
+    <DialogPost v-model="showDialog" :postContent="postContent" :files="files" @close="showDialog = false" />
 </template>
