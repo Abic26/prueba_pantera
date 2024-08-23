@@ -4,7 +4,7 @@ import { ref, defineEmits } from 'vue';
 const selectedOption = ref('publico');
 const buttons = ref([
     { icon: 'pi pi-image', label: 'Imagen', type: 'image' },
-    { icon: 'pi pi-video', label: 'Video', type: 'video' },
+    { icon: 'pi pi-play-circle', label: 'Video', type: 'video' },
     { icon: 'pi pi-microphone', label: 'Micrófono', type: 'audio' },
     { icon: 'pi pi-tag', label: 'Etiqueta', type: 'tag' }
 ]);
@@ -20,6 +20,10 @@ const handleFileChange = (index, event) => {
 
 const registerFileInput = (el, index) => {
     fileInputs.value[index] = el;
+};
+
+const handlePostClick = () => {
+    emit('post');
 };
 
 </script>
@@ -50,7 +54,7 @@ const registerFileInput = (el, index) => {
                 </select>
             </div>
             <div>
-                <button class="bg-[#1ED760] text-black font-bold rounded-full py-2 px-6 text-base"
+                <button @click="handlePostClick" class="bg-[#1ED760] text-black font-bold rounded-full py-2 px-6 text-base"
                     style="width: 86px; height: 40px; border-radius: 22px;">
                     Post
                 </button>
