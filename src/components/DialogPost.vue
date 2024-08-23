@@ -63,6 +63,37 @@ const triggerFileInput = () => {
 const removeFile = (index) => {
     props.files.splice(index, 1);
 }
+const getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+};
+
+const savePost = async () => {
+    console.log('se guardo');
+    console.log(props.postContent);
+
+    // Convertir archivos a base64
+    const fileBase64s = await Promise.all(
+        files.value.map(async file => ({
+            name: file.name,
+            type: file.type,
+            base64: await getBase64(file)
+        }))
+    );
+
+    const dataToStore = {
+        post: props.postContent,
+        files: fileBase64s
+    };
+
+    const dataString = JSON.stringify(dataToStore);
+    localStorage.setItem('myData', dataString);
+}
+
 </script>
 
 <template>
@@ -149,7 +180,8 @@ const removeFile = (index) => {
                         </div>
                         <div class="flex justify-end items-center gap-2">
                             <div>
-                                <button class="bg-[#1ED760] text-black font-bold rounded-full py-2 px-6 text-base"
+                                <button @click="savePost"
+                                    class="bg-[#1ED760] text-black font-bold rounded-full py-2 px-6 text-base"
                                     style="width: 86px; height: 40px; border-radius: 22px;">
                                     Post
                                 </button>
