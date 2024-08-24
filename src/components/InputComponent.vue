@@ -59,7 +59,7 @@ onMounted(() => {
                 class="font-montserrat text-lg p-2 bg-bgInput rounded-md w-full h-[120px] md:h-[134px] resize-none pr-10"
                 :placeholder="postContent"></textarea>
             <i v-if="showTextarea"
-                class="pi pi-face-smile absolute bottom-[80px] md:bottom-[90px] right-7 text-gray-200"></i>
+                class="pi pi-face-smile absolute bottom-[80px] md:bottom-[105px] right-7 text-gray-200"></i>
             <div v-if="showTextarea" class="p-2">
                 <ButtonAddActions @files-selected="handleFilesSelected" @post="openDialog" />
             </div>
@@ -74,7 +74,11 @@ onMounted(() => {
                 <div class="flex flex-row items-center gap-3">
                     <Avatar shape="circle" image="imagen.png"
                         class="object-cover rounded-full w-10 h-10 md:w-12 md:h-12" />
-                    <p class="font-bold text-base md:text-lg">Eleanor Peña</p>
+                    <div class="flex justify-center items-center gap-2">
+                        <p class="font-bold text-base md:text-lg">Eleanor Peña</p>
+                        <i class="pi pi-headphones"></i>
+                        <i class="pi pi-verified"></i>
+                    </div>
                     <div class="flex items-center gap-2 text-sm">
                         <span
                             class="flex items-center opacity-55 justify-center w-1 h-1 bg-gray-400 rounded-full"></span>
@@ -85,21 +89,19 @@ onMounted(() => {
                 <i class="pi pi-ellipsis-v opacity-55 cursor-pointer"></i>
             </div>
             <div class="flex flex-col gap-4">
-      <!-- Si hay más de una imagen, usa flex-wrap para distribuirlas en varias filas -->
-      <div v-if="imageUrl.length > 1" class="flex flex-wrap gap-4">
-        <img v-for="(url, index) in imageUrl" :key="index"
-            class="rounded-xl w-full max-h-[300px] md:max-h-[408px] object-cover flex-1"
-            :src="url" alt="Image" />
-      </div>
-      <!-- Si hay solo una imagen, usa w-full para tomar todo el ancho -->
-      <div v-else-if="imageUrl.length === 1" class="w-full">
-        <img v-if="imageUrl.length === 1" class="rounded-xl w-full max-h-[300px] md:max-h-[408px] object-cover"
-            :src="imageUrl[0]" alt="Image" />
-      </div>
-      <!-- Muestra el contenido del post si está disponible -->
-      <p v-if="postContentView" class="opacity-75 text-sm md:text-base">{{ postContentView }}</p>
-      <p v-else class="opacity-75 text-sm md:text-base">No hay post para mostrar</p>
-    </div>
+                <div v-if="imageUrl.length > 1" class="flex flex-wrap gap-4">
+                    <img v-for="(url, index) in imageUrl" :key="index"
+                        class="rounded-xl w-full max-h-[300px] md:max-h-[408px] object-cover flex-1" :src="url"
+                        alt="Image" />
+                </div>
+                <div v-else-if="imageUrl.length === 1" class="w-full">
+                    <img v-if="imageUrl.length === 1"
+                        class="rounded-xl w-full max-h-[300px] md:max-h-[408px] object-cover" :src="imageUrl[0]"
+                        alt="Image" />
+                </div>
+                <p v-if="postContentView" class="opacity-75 text-sm md:text-base">{{ postContentView }}</p>
+                <p v-else class="opacity-75 text-sm md:text-base">No hay post para mostrar</p>
+            </div>
             <hr v-if="postContentView" class="opacity-25">
             <div v-if="postContentView" class="flex justify-between">
                 <button
