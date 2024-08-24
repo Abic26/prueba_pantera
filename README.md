@@ -1,6 +1,6 @@
 # Prueba Tecnica Pantera
 
-Proyecto realizado en el framework Vue.js + vite para gestionar y visualizar post.
+Proyecto realizado en el framework Vue.js + vite para desarrollar el componentPost.
 ## Tabla de Contenidos
 
 - [Timeline](#timeline)
