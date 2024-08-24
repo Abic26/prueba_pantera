@@ -25,13 +25,12 @@ const registerFileInput = (el, index) => {
 const handlePostClick = () => {
     emit('post');
 };
-
 </script>
 
 <template>
-    <div class="flex justify-between">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
         <div
-            class="flex justify-center items-center gap-6 px-7 py-4 w-[237px] h-[44px] rounded-full border-2 border-gray-500">
+            class="flex justify-center items-center gap-6 px-4 py-3 w-full md:w-auto rounded-full border-2 border-gray-500">
             <span class="text-white cursor-default">Agregar</span>
             <div class="flex">
                 <button v-for="(button, index) in buttons" :key="index"
@@ -44,21 +43,17 @@ const handlePostClick = () => {
             </div>
         </div>
 
-        <div class="flex justify-end items-center gap-2">
-            <div>
-                <select v-model="selectedOption"
-                    class="rounded-full bg-bgSelect text-white p-2 border-none outline-none">
-                    <option value="publico" selected>Público</option>
-                    <option value="privado">Privado</option>
-                    <option value="solo-para-mi">Solo para mí</option>
-                </select>
-            </div>
-            <div>
-                <button @click="handlePostClick" class="bg-[#1ED760] text-black font-bold rounded-full py-2 px-6 text-base"
-                    style="width: 86px; height: 40px; border-radius: 22px;">
-                    Post
-                </button>
-            </div>
+        <div class="flex justify-end items-center gap-2 w-full md:w-auto">
+            <select v-model="selectedOption"
+                class="rounded-full bg-bgSelect text-white p-2 border-none outline-none w-full md:w-auto">
+                <option value="publico" selected>Público</option>
+                <option value="privado">Privado</option>
+                <option value="solo-para-mi">Solo para mí</option>
+            </select>
+            <button @click="handlePostClick" class="bg-[#1ED760] text-black font-bold rounded-full py-2 px-6 text-base"
+                style="width: 86px; height: 40px; border-radius: 22px;">
+                Post
+            </button>
         </div>
     </div>
 </template>

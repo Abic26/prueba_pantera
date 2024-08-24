@@ -92,25 +92,28 @@ const savePost = async () => {
 
     const dataString = JSON.stringify(dataToStore);
     localStorage.setItem('myData', dataString);
+
+    emit('post-saved'); 
+    emit('close');
 }
 
 </script>
 
 <template>
     <Dialog v-model:visible="visible" header="Create Post" visible modal :closable="true" @hide="emit('close')"
-        :style="{ width: '50rem' }">
+        :style="{ width: '90%', maxWidth: '50rem' }">
         <hr>
         <div class="flex flex-col justify-center gap-4">
-            <div class="flex gap-4 pt-6">
-                <Avatar image="imagen.png" class="object-cover rounded-full" size="large" shape="circle" />
-                <div class="flex flex-col gap-2">
+            <div class="flex flex-col md:flex-row gap-4 pt-6">
+                <Avatar  image="imagen.png" class="object-cover rounded-full" size="large" shape="circle" />
+                <div class="flex flex-col gap-2 w-full">
                     <div v-if="files.length">
-                        <div class="flex flex-wrap gap-2 w-[690px] h-auto overflow-hidden relative">
+                        <div class="flex flex-wrap gap-2 w-full h-auto overflow-hidden relative">
                             <div v-for="(file, index) in files" :key="index"
-                                class="flex-grow flex-shrink-0 w-[calc(33%-8px)] h-auto rounded-xl overflow-hidden relative">
+                                class="flex-grow flex-shrink-0 w-full md:w-[calc(33%-8px)] h-auto rounded-xl overflow-hidden relative">
                                 <!-- Imagen -->
                                 <div v-if="file.type.startsWith('image/')" class="w-full h-[150px] relative">
-                                    <img :src="getObjectURL(file)" class="w-full h-full object-cover" />
+                                    <Image preview width="750" :src="getObjectURL(file)" class="w-full h-full object-cover" />
                                     <!-- Botón de eliminar -->
 
                                     <button @click="removeFile(index)"
@@ -150,12 +153,14 @@ const savePost = async () => {
                                     rounded aria-label="Filter" severity="secondary" label="Edit" />
                             </div>
                         </div>
-
                     </div>
-                    <textarea v-model="props.postContent" @input="updateContent($event.target.value)" autoResize
+                    
+                    <!-- Asegúrate de que el textarea mantenga siempre sus dimensiones -->
+                    <textarea disabled v-model="props.postContent" @input="updateContent($event.target.value)"
                         class="font-montserrat text-lg p-2 bg-bgInput rounded-xl w-full h-[134px] resize-none pr-10"
                         placeholder="This was the best performance of the night! The dancers, Choreography, costumes, stage everything! As busy as she is with her tour and then to put this show was amazing. Love her!😍"></textarea>
                     <i class="pi pi-face-smile absolute bottom-[85px] right-9 text-gray-200"></i>
+                    
                     <div class="flex justify-between pt-">
                         <div class="flex justify-center items-center gap-2">
                             <div

@@ -10,9 +10,19 @@ import Dialog from 'primevue/dialog'
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
 import InputText from "primevue/inputtext";
+import Image from 'primevue/image';
 import Textarea from "primevue/textarea";
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faShare } from '@fortawesome/free-solid-svg-icons';
+
 const app = createApp(App);
+
+library.add(faShare);
+app.component('font-awesome-icon', FontAwesomeIcon);
+
+
 
 app.use(PrimeVue, {
   theme: {
@@ -26,6 +36,7 @@ app.component("Dialog", Dialog);
 app.component("IconField", IconField);
 app.component("InputIcon", InputIcon);
 app.component("InputText", InputText);
+app.component("Image", Image);
 app.component("Textarea", Textarea);
 
 
