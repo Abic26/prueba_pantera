@@ -111,36 +111,27 @@ const savePost = async () => {
                         <div class="flex flex-wrap gap-2 w-full h-auto overflow-hidden relative">
                             <div v-for="(file, index) in files" :key="index"
                                 class="flex-grow flex-shrink-0 w-full md:w-[calc(33%-8px)] h-auto rounded-xl overflow-hidden relative">
-                                <!-- Imagen -->
-                                <div v-if="file.type.startsWith('image/')" class="w-full h-[150px] relative">
+                                <div v-if="file.type.startsWith('image/')" class="w-full h-[450px] relative">
                                     <Image preview width="750" :src="getObjectURL(file)" class="w-full h-full object-cover" />
-                                    <!-- Botón de eliminar -->
-
                                     <button @click="removeFile(index)"
                                         class="absolute top-2 right-2 text-white p-1 w-10 h-10 rounded-full backdrop-blur-sm bg-white/30">
                                         <i class="pi pi-times"></i>
                                     </button>
-
                                 </div>
-                                <!-- Video -->
                                 <div v-else-if="file.type.startsWith('video/')" class="w-full h-[150px] relative">
                                     <video :src="getObjectURL(file)" class="w-full h-full object-cover" controls />
-                                    <!-- Botón de eliminar -->
                                     <button @click="removeFile(index)"
                                         class="absolute top-2 right-2 text-white p-1 w-10 h-10 rounded-full backdrop-blur-sm bg-white/30">
                                         <i class="pi pi-times"></i>
                                     </button>
                                 </div>
-                                <!-- Audio -->
                                 <div v-else-if="file.type.startsWith('audio/')" class="w-full h-full relative">
                                     <audio :src="getObjectURL(file)" class="w-full h-full" controls />
-                                    <!-- Botón de eliminar -->
                                     <button @click="removeFile(index)"
                                         class="absolute top-2 right-2 text-white p-1 w-10 h-10 rounded-full backdrop-blur-sm bg-white/30">
                                         <i class="pi pi-times"></i>
                                     </button>
                                 </div>
-                                <!-- Archivo no soportado -->
                                 <div v-else
                                     class="w-full h-full bg-gray-300 text-black flex items-center justify-center">
                                     <span>Archivo no soportado</span>

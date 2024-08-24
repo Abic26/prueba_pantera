@@ -58,7 +58,7 @@ onMounted(() => {
                 class="font-montserrat text-lg p-2 bg-bgInput rounded-md w-full h-[120px] md:h-[134px] resize-none pr-10"
                 :placeholder="postContent"></textarea>
             <i v-if="showTextarea"
-                class="pi pi-face-smile absolute bottom-[80px] md:bottom-[105px] right-7 text-gray-200"></i>
+                class="pi pi-face-smile absolute bottom-[90px] md:bottom-[90px] right-7 text-gray-200"></i>
             <div v-if="showTextarea" class="p-2">
                 <ButtonAddActions @files-selected="handleFilesSelected" @post="openDialog" />
             </div>

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineEmits } from 'vue';
+import { ref } from 'vue';
 
 const selectedOption = ref('publico');
 const buttons = ref([
@@ -30,7 +30,7 @@ const handlePostClick = () => {
 <template>
     <div class="flex flex-col md:flex-row justify-between items-center gap-4">
         <div
-            class="flex justify-center items-center gap-6 px-4 py-3 w-full md:w-auto rounded-full border-2 border-gray-500">
+            class="flex justify-center items-center gap-6 px-4 py-1 w-full md:w-auto rounded-full border-2 border-gray-500">
             <span class="text-white cursor-default">Agregar</span>
             <div class="flex">
                 <button v-for="(button, index) in buttons" :key="index"
