@@ -1,5 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue';
+import Cropperjs from './Cropperjs.vue'
 const props = defineProps({
     postContent: {
         type: String,
@@ -14,7 +15,7 @@ const props = defineProps({
         required: true
     }
 });
-const emit = defineEmits(['close', 'update:modelValue', 'update:postContent']);
+const emit = defineEmits(['close', 'update:modelValue', 'update:postContent', 'postSaved']);
 const getObjectURL = (file) => {
     if (typeof window !== 'undefined' && file) {
         return window.URL.createObjectURL(file);
@@ -93,8 +94,42 @@ const savePost = async () => {
     console.log(dataString);
     localStorage.setItem('myData', dataString);
 
-    emit('post-saved'); 
+    emit('post-saved');
     emit('close');
+}
+const cropperModal = ref(false)
+const dataimagen = ref('')
+
+const handlerCropperModal = () => {
+    if (files.value.length > 0) {
+        cropperModal.value = true;
+        // Obtener el primer archivo de la lista de archivos
+        const firstFile = files.value[0];
+        dataimagen.value = getObjectURL(firstFile);
+    } else {
+        console.warn('No files available for cropping');
+    }
+}
+// Manejar el evento 'image-cropped'
+const handleImageCropped = (croppedImage) => {
+    if (files.value.length > 0) {
+        const firstFile = files.value[0];
+        const updatedFile = new File([dataURLtoBlob(croppedImage)], firstFile.name, { type: firstFile.type });
+        files.value[0] = updatedFile;
+    }
+    cropperModal.value = false;
+}
+
+const dataURLtoBlob = (dataURL) => {
+    const [header, data] = dataURL.split(',');
+    const mime = header.match(/:(.*?);/)[1];
+    const binStr = atob(data);
+    const len = binStr.length;
+    const arr = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+        arr[i] = binStr.charCodeAt(i);
+    }
+    return new Blob([arr], { type: mime });
 }
 
 </script>
@@ -105,14 +140,15 @@ const savePost = async () => {
         <hr>
         <div class="flex flex-col justify-center gap-4">
             <div class="flex flex-col md:flex-row gap-4 pt-6">
-                <Avatar  image="imagen.png" class="object-cover rounded-full" size="large" shape="circle" />
+                <Avatar image="imagen.png" class="object-cover rounded-full" size="large" shape="circle" />
                 <div class="flex flex-col gap-2 w-full">
                     <div v-if="files.length">
                         <div class="flex flex-wrap gap-2 w-full h-auto overflow-hidden relative">
                             <div v-for="(file, index) in files" :key="index"
                                 class="flex-grow flex-shrink-0 w-full md:w-[calc(33%-8px)] h-auto rounded-xl overflow-hidden relative">
                                 <div v-if="file.type.startsWith('image/')" class="w-full h-[450px] relative">
-                                    <Image preview width="750" :src="getObjectURL(file)" class="w-full h-full object-cover" />
+                                    <Image preview width="750" :src="getObjectURL(file)"
+                                        class="w-full h-full object-cover" />
                                     <button @click="removeFile(index)"
                                         class="absolute top-2 right-2 text-white p-1 w-10 h-10 rounded-full backdrop-blur-sm bg-white/30">
                                         <i class="pi pi-times"></i>
@@ -140,17 +176,18 @@ const savePost = async () => {
                             <div class="flex gap-2 w-full absolute top-4 left-2 z-50">
                                 <Button @click="triggerFileInput" class="backdrop-blur-sm bg-white/30" icon="pi pi-plus"
                                     text raised rounded aria-label="add" severity="secondary" />
-                                <Button class="backdrop-blur-sm bg-white/30" icon="pi pi-pen-to-square" text raised
-                                    rounded aria-label="Filter" severity="secondary" label="Edit" />
+                                <Button @click="handlerCropperModal" class="backdrop-blur-sm bg-white/30"
+                                    icon="pi pi-pen-to-square" text raised rounded aria-label="Filter"
+                                    severity="secondary" label="Edit" />
                             </div>
                         </div>
                     </div>
-                    
+
                     <textarea disabled v-model="props.postContent" @input="updateContent($event.target.value)"
                         class="font-montserrat text-lg p-2 bg-bgInput rounded-xl w-full h-[134px] resize-none pr-10"
                         placeholder="This was the best performance of the night! The dancers, Choreography, costumes, stage everything! As busy as she is with her tour and then to put this show was amazing. Love her!😍"></textarea>
                     <i class="pi pi-face-smile absolute bottom-[85px] right-9 text-gray-200"></i>
-                    
+
                     <div class="flex justify-between pt-">
                         <div class="flex justify-center items-center gap-2">
                             <div
@@ -187,5 +224,8 @@ const savePost = async () => {
             </div>
         </div>
         <input ref="fileInput" type="file" @change="handleFileChange" multiple style="display: none" />
+    </Dialog>
+    <Dialog header="Edit photo" v-model:visible="cropperModal" :style="{ width: '90%', maxWidth: '50rem' }">
+        <Cropperjs :imageSrc="dataimagen" @image-cropped="handleImageCropped" />
     </Dialog>
 </template>
