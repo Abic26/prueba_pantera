@@ -55,7 +55,7 @@ npm run dev
 
 ### Agregar
 
-se puede agregar varias imagenes al mismo tiempó, se puede agregar videos o audios. 
+se puede agregar varias imagenes al mismo tiempó, se puede agregar videos o audios, se utilizo el localstorage para guardar el post y tener persistencia del mismo
 
 ### Eliminar
 
