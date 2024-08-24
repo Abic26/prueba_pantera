@@ -15,7 +15,7 @@ const emit = defineEmits(['image-cropped']);
 const imageData = ref(null);
 const croppedImage = ref(null);
 const cropperInstance = ref(null);
-const refImage = ref(null); // Definir la referencia de la imagen
+const refImage = ref(null);
 
 watch(() => props.imageSrc, (newSrc) => {
     imageData.value = newSrc;
@@ -27,7 +27,7 @@ const initializeCropper = () => {
     }
     if (refImage.value) {
         cropperInstance.value = new Cropper(refImage.value, {
-            aspectRatio: 1, // Cambia esto según tu necesidad
+            aspectRatio: 1,
             viewMode: 1,
             autoCropArea: 1,
             scalable: true,
@@ -41,7 +41,7 @@ const cropImage = () => {
         croppedImage.value = cropperInstance.value.getCroppedCanvas().toDataURL();
         emit('image-cropped', croppedImage.value);
     }
-    console.log(croppedImage); //devolver este valor al conmpobnente padre
+    console.log(croppedImage);
 };
 
 onUnmounted(() => {

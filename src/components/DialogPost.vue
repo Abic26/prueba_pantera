@@ -84,7 +84,6 @@ const savePost = async () => {
             base64: await getBase64(file)
         }))
     );
-
     const dataToStore = {
         post: props.postContent,
         files: fileBase64s
@@ -97,9 +96,9 @@ const savePost = async () => {
     emit('post-saved');
     emit('close');
 }
+
 const cropperModal = ref(false)
 const dataimagen = ref('')
-
 const handlerCropperModal = () => {
     if (files.value.length > 0) {
         cropperModal.value = true;
@@ -110,7 +109,6 @@ const handlerCropperModal = () => {
         console.warn('No files available for cropping');
     }
 }
-// Manejar el evento 'image-cropped'
 const handleImageCropped = (croppedImage) => {
     if (files.value.length > 0) {
         const firstFile = files.value[0];
@@ -119,7 +117,6 @@ const handleImageCropped = (croppedImage) => {
     }
     cropperModal.value = false;
 }
-
 const dataURLtoBlob = (dataURL) => {
     const [header, data] = dataURL.split(',');
     const mime = header.match(/:(.*?);/)[1];
@@ -131,7 +128,6 @@ const dataURLtoBlob = (dataURL) => {
     }
     return new Blob([arr], { type: mime });
 }
-
 </script>
 
 <template>
