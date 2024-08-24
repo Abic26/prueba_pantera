@@ -7,7 +7,8 @@ export default {
         backgraoundTheme: "#1d1c1a",
         themePost: "#292826",
         bgInput:"#393936",
-        bgSelect: "#393936"
+        bgSelect: "#393936",
+        bgHover: "#545553"
       },
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],

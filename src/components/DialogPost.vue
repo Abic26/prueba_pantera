@@ -91,6 +91,7 @@ const savePost = async () => {
     };
 
     const dataString = JSON.stringify(dataToStore);
+    console.log(dataString);
     localStorage.setItem('myData', dataString);
 
     emit('post-saved'); 

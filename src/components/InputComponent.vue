@@ -27,10 +27,10 @@ const loadPost = () => {
         const data = JSON.parse(dataString);
         postContentView.value = data.post || '';
         if (data.files && data.files.length > 0) {
-            const imageFile = data.files.find(file => file.type.startsWith('image/'));
-            if (imageFile) {
-                imageUrl.value = imageFile.base64 || '';
-            }
+            // Filtra solo las imágenes
+            imageUrl.value = data.files
+                .filter(file => file.type.startsWith('image/'))
+                .map(file => file.base64);
         }
     } else {
         console.log('No data found in localStorage');
@@ -84,29 +84,38 @@ onMounted(() => {
                 </div>
                 <i class="pi pi-ellipsis-v opacity-55 cursor-pointer"></i>
             </div>
-            <div class="flex flex-col w-auto gap-4">
-                <img v-if="imageUrl && imageUrl.length"
-                    class="rounded-xl w-full max-h-[300px] md:max-h-[408px] object-cover" :src="imageUrl" alt="Image" />
-                <p v-if="postContentView" class="opacity-75 text-sm md:text-base">{{ postContentView }}</p>
-                <p v-else class="opacity-75 text-sm md:text-base">No hay post para mostrar</p>
-            </div>
-            <hr class="opacity-25">
-            <div class="flex justify-between">
-                
+            <div class="flex flex-col gap-4">
+      <!-- Si hay más de una imagen, usa flex-wrap para distribuirlas en varias filas -->
+      <div v-if="imageUrl.length > 1" class="flex flex-wrap gap-4">
+        <img v-for="(url, index) in imageUrl" :key="index"
+            class="rounded-xl w-full max-h-[300px] md:max-h-[408px] object-cover flex-1"
+            :src="url" alt="Image" />
+      </div>
+      <!-- Si hay solo una imagen, usa w-full para tomar todo el ancho -->
+      <div v-else-if="imageUrl.length === 1" class="w-full">
+        <img v-if="imageUrl.length === 1" class="rounded-xl w-full max-h-[300px] md:max-h-[408px] object-cover"
+            :src="imageUrl[0]" alt="Image" />
+      </div>
+      <!-- Muestra el contenido del post si está disponible -->
+      <p v-if="postContentView" class="opacity-75 text-sm md:text-base">{{ postContentView }}</p>
+      <p v-else class="opacity-75 text-sm md:text-base">No hay post para mostrar</p>
+    </div>
+            <hr v-if="postContentView" class="opacity-25">
+            <div v-if="postContentView" class="flex justify-between">
                 <button
-                    class="w-full flex justify-center items-center gap-2 opacity-50 hover:bg-slate-300 hover:text-white p-2 rounded-full">
-                    <img src="/public/hand-horns.png" class="w-3" alt="">
+                    class="w-full flex justify-center items-center hover:text-white gap-2 hover:opacity-100 hover:bg-bgHover font-bold p-2 rounded-full">
+                    <img src="/hand-horns.png" class="w-4" alt="">
                     <span class="cursor-pointer" for="">444 Likes</span>
                 </button>
                 <button
-                    class="w-full flex justify-center items-center gap-2 opacity-50 hover:bg-slate-300 hover:text-white p-2 rounded-full">
+                    class="w-full flex justify-center items-center hover:text-white gap-2 hover:opacity-100 hover:bg-bgHover font-bold p-2 rounded-full">
                     <i class="pi pi-comment"></i>
                     <span class="cursor-pointer" for="">111 Comments</span>
                 </button>
                 <button
-                    class="w-full flex justify-center items-center gap-2 opacity-50 hover:bg-slate-300 hover:text-white p-2 rounded-full">
+                    class="w-full flex justify-center items-center hover:text-white gap-2 hover:opacity-100 hover:bg-bgHover font-bold p-2 rounded-full">
                     <font-awesome-icon icon="share" />
-                    <span class="cursor-pointer" for="">42 Likes</span>
+                    <span class="cursor-pointer" for="">42 Shares</span>
                 </button>
             </div>
         </div>
