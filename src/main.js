@@ -16,10 +16,12 @@ import Textarea from "primevue/textarea";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faShare } from '@fortawesome/free-solid-svg-icons';
+import { faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
 
 const app = createApp(App);
 
 library.add(faShare);
+library.add(faEarthAmericas);
 app.component('font-awesome-icon', FontAwesomeIcon);
 
 

@@ -82,7 +82,7 @@ onMounted(() => {
                         <span
                             class="flex items-center opacity-55 justify-center w-1 h-1 bg-gray-400 rounded-full"></span>
                         <p class="text-center opacity-55">5 min</p>
-                        <i class="pi pi-globe text-gray-200 opacity-55"></i>
+                        <font-awesome-icon class="text-gray-200 opacity-55" icon="earth-americas" />
                     </div>
                 </div>
                 <i class="pi pi-ellipsis-v opacity-55 cursor-pointer"></i>
