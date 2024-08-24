@@ -3,6 +3,7 @@
 Proyecto realizado en el framework Vue.js + vite para gestionar y visualizar post.
 ## Tabla de Contenidos
 
+- [Timeline](#timeline)
 - [Instalación](#instalación)
 - [Uso](#uso)
 - [Despliegue](#despliegue)
@@ -11,6 +12,12 @@ Proyecto realizado en el framework Vue.js + vite para gestionar y visualizar pos
 - [Créditos](#créditos)
 - [Licencia](#licencia)
 - [Contacto](#contacto)
+
+## Timeline
+
+Gestion de tiempo en el que se creo el componente y sus requerimientos
+- Timelie: [Ver Timeline](https://docs.google.com/spreadsheets/d/1Maz6iDRzKnzoeJYMOjb5ChTtu_b6FcuhDhO28IquRj8/edit?usp=sharing)
+
 
 ## Instalación
 
