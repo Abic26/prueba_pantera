@@ -75,8 +75,11 @@ onMounted(() => {
                         class="object-cover rounded-full w-10 h-10 md:w-12 md:h-12" />
                     <div class="flex justify-center items-center gap-2">
                         <p class="font-bold text-base md:text-lg">Eleanor Peña</p>
-                        <i class="pi pi-headphones"></i>
-                        <i class="pi pi-verified"></i>
+                        <div class="bg-white rounded-full p-[2px] w-4 h-4 flex items-center justify-center">
+                            <font-awesome-icon icon="music" class="text-themePost w-2 h-2" />
+                        </div>
+
+                        <font-awesome-icon icon="circle-check" />
                     </div>
                     <div class="flex items-center gap-2 text-sm">
                         <span
