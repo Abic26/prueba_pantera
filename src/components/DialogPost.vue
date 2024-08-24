@@ -49,7 +49,7 @@ const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
     files.forEach(file => {
         if (file.type.startsWith('image/')) {
-            console.log('Image file detected:', file); // Verifica que los archivos sean detectados
+            console.log('Image file detected:', file);
             props.files.push(file);
         } else {
             console.warn('Unsupported file type:', file.type);
@@ -76,7 +76,6 @@ const savePost = async () => {
     console.log('se guardo');
     console.log(props.postContent);
 
-    // Convertir archivos a base64
     const fileBase64s = await Promise.all(
         files.value.map(async file => ({
             name: file.name,
@@ -156,7 +155,6 @@ const savePost = async () => {
                         </div>
                     </div>
                     
-                    <!-- Asegúrate de que el textarea mantenga siempre sus dimensiones -->
                     <textarea disabled v-model="props.postContent" @input="updateContent($event.target.value)"
                         class="font-montserrat text-lg p-2 bg-bgInput rounded-xl w-full h-[134px] resize-none pr-10"
                         placeholder="This was the best performance of the night! The dancers, Choreography, costumes, stage everything! As busy as she is with her tour and then to put this show was amazing. Love her!😍"></textarea>

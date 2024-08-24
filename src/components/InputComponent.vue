@@ -27,7 +27,6 @@ const loadPost = () => {
         const data = JSON.parse(dataString);
         postContentView.value = data.post || '';
         if (data.files && data.files.length > 0) {
-            // Filtra solo las imágenes
             imageUrl.value = data.files
                 .filter(file => file.type.startsWith('image/'))
                 .map(file => file.base64);
